@@ -1,0 +1,122 @@
+<!doctype html> 
+<html lang="zh-cmn-Hans">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="chrome=1,IE=edge" />
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="Cache-Control" content="no-siteapp" />
+	</head>
+
+
+	<script>
+	/*
+		function extend(parent, child) {
+		    var i,
+		        toStr = Object.prototype.toString,
+		        astr = "[object Array]";
+
+		    child = child || {};
+
+		    for (i in parent) {
+		        if (parent.hasOwnProperty(i)) {
+		            if (typeof parent[i] === "object") {
+		                child[i] = (toStr.call(parent[i]) === astr) ? [] : {};
+		                extendDeep(parent[i], child[i]);
+		            } else {
+		                child[i] = parent[i];
+		            }
+		        }
+		    }
+		    return child;
+		}
+		
+		//构造继承
+		function extend(Parent,Child) {
+	　　　　var F = function(){};
+	　　　　F.prototype = Parent.prototype;
+	　　　　Child.prototype = new F();
+	　　　　Child.prototype.constructor = Child;
+	　　　　Child.uber = Parent.prototype;
+	　　}
+		*/
+
+		/*拷贝继承
+		function copyExtend(p, c) {　　　　
+			var c = c || {};　　　　
+			for (var i in p) {　　　　　　
+				if (typeof p[i] === 'object') {　　　　　　　　
+					c[i] = (p[i].constructor === Array) ? [] : {};
+					copyExtend(p[i], c[i]);　　　　　　
+				} else {　　　　　　　　　
+					c[i] = p[i];　　　　　　
+				}　　　　
+			}
+			//
+			//c.constructor = p.constructor;
+　　　
+			return c;　　
+		}*/
+
+		function copyExtend( Parent,Child) {　　　　
+			var p = Parent.prototype;
+			var c = Child.prototype;
+			for (var i in p) {
+				//子类已存在的不被父类所覆盖
+				if (typeof c[i] == "undefined"){
+					c[i] = p[i];
+				}
+			}
+			c.uber = p;
+		}
+	</script>
+
+	<script type="text/javascript">
+		//阮一峰博客,有关js继承
+		//http://www.ruanyifeng.com/blog/2010/05/object-oriented_javascript_inheritance.html
+		///////////////////////////////////////
+		//父类
+		function Dad() {
+			//this.相当于private
+			this.counts = ["1w", "2w", "3w"];
+			this.reads = {
+				paper: true
+			};
+			this.name = "dad";
+			//用return更合适?
+		}
+		//prototype相当于public
+		Dad.prototype.AAA = "BBB";
+		Dad.prototype.getName = function() {
+			alert("Dad==>"+this.name);
+		};
+		///////////////////////////////////////
+
+		
+
+		///////////////////////////////////////
+		//子类
+		function Kid() {
+			this.counts = [1, 2, 3];
+			this.name = "kid";
+		}
+		Kid.prototype.getName = function() {
+			alert("Kid111==>"+this.name);
+		};
+		Kid.prototype.getName2 = function() {
+			alert("Kid222==>"+this.name);
+		};
+		///////////////////////////////////////
+
+
+		///////////////////////////////////////
+		//继承
+		copyExtend(Dad,Kid);
+		///////////////////////////////////////
+
+
+		//对象
+		var dad = new Dad();
+		var kid = new Kid();
+		kid.name = "RRRRR";
+	</script>
+</html>
