@@ -1,0 +1,147 @@
+<!doctype html> 
+<html lang="zh-cmn-Hans">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="chrome=1,IE=edge" />
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="Cache-Control" content="no-siteapp" />
+	</head>
+
+	先从继承的宿主 也就是从对象上分, 对象的声明方式上分为:
+	一: 使用"构造函数"模式, 二: 使用字面量声明对象, 
+	先说第二种,字面量因为没有用new, 所以只能手动去拷贝. 可玩性比较低, 以我现在的水平看不合适做继承.
+
+	重点说第一种"构造函数"模式, 
+	这种继承从具体的继承方法上分:1.apply继承: 2.类拷贝继承
+	目前实验得出的结论是: 
+
+	apply继承:
+	目的是继承Dad_Class中的this.XXXX , 但是继承不到Dad_Class.prototype.YYYY
+	类拷贝继承:
+	目的是拷贝Parent_Class中prototype.YYYY, 但是继承不到Dad_Class中的this.XXXX
+
+	这两种同时使用, 正好能补全全部继承的内容. 
+
+		
+
+	<script>
+		//一: 使用"构造函数"模式, 
+		//利用new生成实例: this指向实例对象,实例.constructor指向父类,instanceof也可检测
+		//使用prototype减少实例中的拷贝: 父类.prototype.isPrototypeOf(实例)==true
+
+		//类拷贝继承: 作用是拷贝Parent_Class中prototype.YYYY
+		//用法: copyExtend_Class(function Dad_Class(){...},function Kid_Class(){...});
+		function copyExtend_Class(Parent, Child) {　　　　
+			var p = Parent.prototype;
+			var c = Child.prototype;
+			for (var i in p) {
+				//子类如果已存在的,则不会被父类所覆盖
+				if (typeof c[i] == "undefined") {
+					c[i] = p[i];
+				}
+			}
+			c.uber = p; //增加属性,指明父类
+		}
+
+
+		//父类
+		function Dad_Class(arg) {
+			//this的属性:apply能继承,copyExtend_Class拷贝不到
+			this.str = "dad_" + arg;
+			this.array = ["dad_0_ruantao", "dad_1_duapp", "dad_2_com"];
+			this.obj = {
+				key: "dad_value_ruantao.duapp.com"
+			};
+			this.functionInThis = function(str) {
+				alert(this.str);
+			}
+			//用的构造函数,不能return
+		}
+		Dad_Class.prototype.strInPrototype = "dad_strInPrototype";
+		Dad_Class.prototype.functionInPrototype = function() {
+			alert("Dad_Class==>" + this.name);
+		};
+		Dad_Class.prototype.theSameNameFun = function() {
+			alert("Dad_Class==>" + this.str);
+		};
+		//子类
+		function Kid_Class() {
+			//1.apply继承: 目的是继承Dad_Class中的this.XXXX
+			//会在此作用域内更换this指针
+			//也就是把将Dad_Class中带this的东西拷到Kid_Class中,但拷贝不了prototype
+			Dad_Class.apply(this, arguments);
+			this.str = "kid_str";
+			this.array = ["kid_1_ruantao", "kid_2_duapp", "kid_3_com"];
+		}
+		Kid_Class.prototype.functionInPrototype2222 = function() {
+			alert("Kid_Class==>" + this.name);
+		};
+		Kid_Class.prototype.theSameNameFun = function() {
+			alert("Kid_Class==>" + this.str);
+		};
+		//2拷贝继承: 目的是要继承Dad_Class.prototype.YYYY
+		copyExtend_Class(Dad_Class, Kid_Class);
+
+
+		//实例化
+		var dad = new Dad_Class("str");
+		var kid = new Kid_Class();
+		kid.name = "RRRRR";
+
+		//效果展示
+		console.log("Dad_Class.constructor==>"+Dad_Class.constructor);
+		console.log("Kid_Class.constructor==>"+Kid_Class.constructor);//这俩都是Function 
+
+		console.log(dad.strInPrototype);
+		console.log(kid.strInPrototype);//只有使用拷贝继承时,kid才能继承Dad_Class.prototype.YYYY
+
+		dad.functionInThis();
+		kid.functionInThis();//只有使用apply继承时,kid才能继承Dad_Class中的this.XXXX
+	</script>
+	
+
+	<script>
+		//二: 使用字面量声明对象, 
+		//这个因为没有new, 只能去拷贝. 可玩性比较低, 以我现在的水平看不合适做继承
+
+		//对象拷贝继承
+		function copyExtend_Object(p, c) {
+			var c = c || {};
+			for (var i in p) {
+				if (typeof p[i] === 'object') {
+					c[i] = (p[i].constructor === Array) ? [] : {};
+					copyExtend_Object(p[i], c[i]);
+				} else {
+					c[i] = p[i];
+				}
+			}
+			//c.constructor = p.constructor;
+			return c;
+		}
+
+		//父对象
+		var Dad_Object = {
+			array : ["dad_0_ruantao", "dad_1_duapp", "dad_2_com"],
+			obj : {
+				key: "dad_value_ruantao.duapp.com"
+			},
+			str : "dad",
+			fun : function() {
+				alert(this.name);
+			}
+			//因为是字面量声明的对象, 所以不能return , 类似:
+			// function Dad_Object(n){
+			// 	return {
+			// 		name : "dad"+n
+			// 	}
+			// } 的形式,子对象继承不到任何值
+		};
+		//Dad_Object.prototype继承不了,都为undefined
+
+		//子对象
+		var kid_Object = {};
+		//继承
+		kid_Object = copyExtend_Object(Dad_Object);
+		kid_Object.name = "kid1";
+	</script>
+</html>
