@@ -1,0 +1,149 @@
+
+/* ==>1 */
+* {
+        margin: 0;
+        padding: 0
+}
+fieldset,img,iframe {
+        border: 0
+}
+address,caption,cite,code,dfn,em,i,th,var {
+        font-style: normal;
+        font-weight: 400
+}
+ul,li,ol {
+        list-style: none
+}
+caption,th {
+        text-align: left
+}
+h1,h2,h3,h4,h5,h6 {
+        font-size: 100%;
+        font-weight: 400
+}
+html {
+        font-size: 100%
+}
+body {
+        vertical-align: baseline;
+        background-color: transparent;
+        -webkit-backface-visibility: hidden
+}
+a: focus,a: hover,a: active,input: focus,textarea: focus {
+        outline: 0
+}
+img {
+        vertical-align: middle
+}
+table {
+        font-size: inherit;
+        font: 100%;
+        border-collapse: collapse;
+        border-spacing: 0
+}
+td {
+        vertical-align: top
+}
+th {
+        text-align: inherit
+}
+iframe {
+        display: block
+}
+textarea {
+        resize: none;
+        overflow: auto;
+        vertical-align: top
+}
+button,input,select,textarea {
+        font-size: 100%;
+        vertical-align: baseline
+}
+button,input {
+        *overflow: visible;
+        line-height: normal;
+        -webkit-box-sizing: content-box;
+        -moz-box-sizing: content-box;
+        box-sizing: content-box
+}
+button {
+        cursor: pointer
+}
+button[disabled],input[disabled] {
+        cursor: default
+}
+abbr,acronym {
+        border: 0;
+        font-variant: normal
+}
+strong,.strong {
+        font-weight: 700
+}
+body {
+        _zoom: expression(function(el) {
+        document.execCommand('BackgroundImageCache',false,true);
+        el.style.zoom="1"
+        }
+        (this))
+}
+img {
+        -ms-interpolation-mode: bicubic
+}
+button,input,select,textarea {
+        *vertical-align: middle
+}
+button,input {
+        *overflow: visible
+}
+
+
+
+
+
+/* ==>2 */
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, font, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td { border: 0; font-family: inherit; font-size: 100%; font-style: inherit; font-weight: inherit; margin: 0; outline: 0; padding: 0; vertical-align: baseline; }
+article, aside, details, figcaption, figure, footer, header, hgroup, nav, section { display: block; }
+body, button, input, select, textarea { color: #2b2b2b; font: 12px/1.5 "Hiragino Sans GB", Tahoma, Arial, Microsoft YaHei, "微软雅黑", "Helvetica Neue", sans-serif; *font-family: "Hiragino Sans GB", Microsoft YaHei, "微软雅黑", Tahoma, Arial, "Helvetica Neue", sans-serif; }
+ol, ul, li { list-style: none; vertical-align:middle; }
+img { border: none; vertical-align: middle; }
+h1, h2, h3, h4, h5, h6 { font-weight: normal; margin: 10px 0 5px 0; }
+h1 { font-size: 26px; line-height: 1.3846153846; }
+h2 { font-size: 24px; line-height: 1; }
+h3 { font-size: 22px; line-height: 1.0909090909; }
+h4 { font-size: 20px; line-height: 1.2; }
+h5 { font-size: 18px; line-height: 1.3333333333; }
+h6 { font-size: 16px; line-height: 1.5; }
+input, select { vertical-align: middle; outline: none; }
+table { border-collapse: collapse; border-spacing: 0; empty-cells: show; }
+.relative { position: relative; top: auto; left: auto; }
+a { color: #000; text-decoration: none; }
+a:hover { color: #333; text-decoration: underline; }
+i { display: inline-block; vertical-align: middle; margin: 0 5px; font-style: normal; }
+/*clearfix*/
+.cf:before, .cf:after { content: ""; display: table; }
+.cf:after { clear: both; }
+.cf { zoom: 1; }
+.lt { float: left; }
+.rt { float: right; }
+
+
+
+
+
+/* ==>3 */
+/* css reset www.admin10000.com */
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,button,textarea,p,blockquote,th,td { margin:0; padding:0; }
+body { background:#fff; color:#555; font-size:14px; font-family: Verdana, Arial, Helvetica, sans-serif; }
+td,th,caption { font-size:14px; }
+h1, h2, h3, h4, h5, h6 { font-weight:normal; font-size:100%; }
+address, caption, cite, code, dfn, em, strong, th, var { font-style:normal; font-weight:normal;}
+a { color:#555; text-decoration:none; }
+a:hover { text-decoration:underline; }
+img { border:none; }
+ol,ul,li { list-style:none; }
+input, textarea, select, button { font:14px Verdana,Helvetica,Arial,sans-serif; }
+table { border-collapse:collapse; }
+html {overflow-y: scroll;} 
+/* css common */
+.clearfix:after {content: "."; display: block; height:0; clear:both; visibility: hidden;}
+.clearfix { *zoom:1; }
